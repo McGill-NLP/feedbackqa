@@ -1,10 +1,14 @@
+## 0. Introduction
+This repo contains the code for our paper *Using Interactive Feedback to Improve the  Accuracy and Explainability of Question Answering Systems Post-Deployment*.
+
+
 ## 1. Dataset
 
 * Download from [this repo](https://github.com/McGill-NLP/feedbackqa-data)
 
 ## 2. Library dependencies
 
-* `requirement.txt`
+* `pip install -r requirement.txt`
 * `cd parlai && python setup.py install` 
 ## 3. Train RQA models
 
