@@ -1,6 +1,6 @@
 ## 1. Dataset
 
-* Download from [this repo](https://github.com/SHIAULEE/FeedbackQA_data/tree/master)
+* Download from [this repo](https://github.com/McGill-NLP/feedbackqa-data)
 
 ## 2. Library dependencies
 
