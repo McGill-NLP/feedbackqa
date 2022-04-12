@@ -11,7 +11,7 @@ do
     python ./feedbackQA/rerank.py \
         --gpu 0 \
         --do_rerank \
-        --predict ./feedbackQA_data/crowdsourced_data/$DOMAIN/test.json \
+        --predict ./feedbackQA_data/$DOMAIN/test.json \
         --config ./feedbackQA/configs/bart_inve.yaml \
         --output $MODEL_SAVE_PATH \
         --reason_config ./feedbackQA/configs_rerank/feedback.yaml\
@@ -23,7 +23,7 @@ done
 python ./feedbackQA/rerank.py \
         --gpu 0 \
         --do_rerank \
-        --predict ./feedbackQA_data/crowdsourced_data/Quebec/test_new_faq_coll4.json \
+        --predict ./feedbackQA_data/Quebec/test_new_faq_coll4.json \
         --config ./feedbackQA/configs/bart_inve.yaml \
         --output $MODEL_SAVE_PATH \
         --reason_config ./feedbackQA/configs_rerank/feedback.yaml\
@@ -34,7 +34,7 @@ python ./feedbackQA/rerank.py \
 python ./feedbackQA/rerank.py \
         --gpu 0 \
         --do_rerank \
-        --predict ./feedbackQA_data/crowdsourced_data/Quebec/test_old_faq_coll4.json \
+        --predict ./feedbackQA_data/Quebec/test_old_faq_coll4.json \
         --config ./feedbackQA/configs/bart_inve.yaml \
         --output $MODEL_SAVE_PATH \
         --reason_config ./feedbackQA/configs_rerank/feedback.yaml\
