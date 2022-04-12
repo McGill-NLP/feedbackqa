@@ -20,7 +20,7 @@ do
         --feedback_output_file $FB_OUTPUT_PATH/$DOMAIN.json
 done
 
-python /home/lcc/rqa_feedback/code_base/feedbackQA/rerank.py \
+python ./feedbackQA/rerank.py \
         --gpu 0 \
         --do_rerank \
         --predict ./feedbackQA_data/crowdsourced_data/Quebec/test_new_faq_coll4.json \
@@ -31,7 +31,7 @@ python /home/lcc/rqa_feedback/code_base/feedbackQA/rerank.py \
         --predict-to $PRED_OUTPUT_PATH/quebec_new_outs.txt\
         --feedback_output_file $FB_OUTPUT_PATH/quebec_new.json
 
-python /home/lcc/rqa_feedback/code_base/feedbackQA/rerank.py \
+python ./feedbackQA/rerank.py \
         --gpu 0 \
         --do_rerank \
         --predict ./feedbackQA_data/crowdsourced_data/Quebec/test_old_faq_coll4.json \
