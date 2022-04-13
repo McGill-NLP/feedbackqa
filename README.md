@@ -100,4 +100,13 @@ This repo contains the code and data for our paper [*Using Interactive Feedback 
 
 The implementation of base QA models are borrowed from [ParlAI](https://github.com/facebookresearch/ParlAI). We use [Huggingface](https://github.com/huggingface) for implementing neural models.
 
+## 8. Citation
 
+```
+@inproceedings{feedbackqa2022,
+  title={Using Interactive Feedback to Improve the Accuracy and Explainability of Question Answering Systems Post-Deployment},
+  author={Zichao Li, Prakhar Sharma, Xing Han Lu, Jackie C.K. Cheung, Siva Reddy},
+  booktitle={Findings of the Association for Computational Linguistics: ACL 2022},
+  year={2022}
+}
+```
