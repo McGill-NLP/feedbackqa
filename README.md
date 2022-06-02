@@ -31,7 +31,7 @@ The full instructions for running the experiments described in the paper can be 
 
 ## Dataset
 
-You can find link to Huggingface Dataset at the top of the readme. If you want to download them directly, you can find the data in [`data/`](./data). If you want to unprocessed, original version of the data, you can find them in [`experiments/feedbackQA_data/`](./experiments/feedbackQA_data/). Please refer to the instructions in [`experiments/`](./experiments) for more information on the structure of the original data.
+You can find link to Huggingface Dataset at the top of the readme. If you want to download them directly, you can find the data in [`data/`](./data). If you want the version of the data used in the experiments, you can find them in [`experiments/feedbackQA_data/`](./experiments/feedbackQA_data/).
 
 ### Direct download
 
@@ -86,4 +86,6 @@ print(sample['domain'])
 # => Australia
 ```
 
+# Acknowledgement
 
+The implementation of base QA models are borrowed from [ParlAI](https://github.com/facebookresearch/ParlAI). We use [Huggingface](https://github.com/huggingface) for implementing neural models.
