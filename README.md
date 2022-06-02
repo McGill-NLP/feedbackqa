@@ -4,14 +4,15 @@
 >
 > *Zichao Li, Prakhar Sharma, Xing Han Lu, Jackie C.K. Cheung, Siva Reddy*
 
-![An diagram of how FeedbackQA conceptually works](/docs/assets/fbqa.png)
+![An diagram of how FeedbackQA conceptually works](/docs/fbqa.png)
 
 This repository provides the code for experiments and the dataset we released. You can find below useful links:
 
-[Paper](https://arxiv.org/abs/2204.03025)\
+[📄 Paper](https://arxiv.org/abs/2204.03025)\
 [💻 Github Repository](https://github.com/McGill-NLP/feedbackqa)\
-[Huggingface Dataset](https://huggingface.co/datasets/McGill-NLP/feedbackQA)\
-[Demo](http://206.12.100.48:8080/)
+[🌐 Webpage](https://mcgill-nlp.github.io/feedbackqa/)\
+[🤗 Huggingface Dataset](https://huggingface.co/datasets/McGill-NLP/feedbackQA)\
+[💿 Demo](http://206.12.100.48:8080/)
 
 
 You can cite us by using the following bibtex entry:
