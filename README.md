@@ -1,6 +1,6 @@
 # FeedbackQA
 
-> **Using Interactive Feedback to Improve the Accuracy and Explainability of Question Answering Systems Post-Deployment**
+> [**Using Interactive Feedback to Improve the Accuracy and Explainability of Question Answering Systems Post-Deployment**](https://arxiv.org/abs/2204.03025)
 >
 > *Zichao Li, Prakhar Sharma, Xing Han Lu, Jackie C.K. Cheung, Siva Reddy*
 
@@ -8,11 +8,11 @@
 
 This repository provides the code for experiments and the dataset we released. You can find below useful links:
 
-[📄 Paper](https://arxiv.org/abs/2204.03025)\
-[💻 Github Repository](https://github.com/McGill-NLP/feedbackqa)\
-[🌐 Webpage](https://mcgill-nlp.github.io/feedbackqa/)\
+[📄 Read](https://arxiv.org/abs/2204.03025)\
+[:octocat: Code](https://github.com/McGill-NLP/feedbackqa)\
+[🔗 Webpage](https://mcgill-nlp.github.io/feedbackqa/)\
+[💻 Demo](http://206.12.100.48:8080/)
 [🤗 Huggingface Dataset](https://huggingface.co/datasets/McGill-NLP/feedbackQA)\
-[💿 Demo](http://206.12.100.48:8080/)
 
 
 You can cite us by using the following bibtex entry:
