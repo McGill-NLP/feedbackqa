@@ -1,6 +1,7 @@
 # FeedbackQA
 
 > [**Using Interactive Feedback to Improve the Accuracy and Explainability of Question Answering Systems Post-Deployment**](https://arxiv.org/abs/2204.03025)
+>
 > *Zichao Li, Prakhar Sharma, Xing Han Lu, Jackie C.K. Cheung, Siva Reddy*
 
 ![An diagram of how FeedbackQA conceptually works](/docs/fbqa.png)
