@@ -1,107 +1,21 @@
-## 0. Introduction
+# FeedbackQA
 
-This repo contains the code and data for our paper [*Using Interactive Feedback to Improve the  Accuracy and Explainability of Question Answering Systems Post-Deployment*](http://arxiv.org/abs/2204.03025). Play with an interactive demo [here](http://206.12.100.48:8080/)
+> **Using Interactive Feedback to Improve the Accuracy and Explainability of Question Answering Systems Post-Deployment**
+>
+> *Zichao Li, Prakhar Sharma, Xing Han Lu, Jackie C.K. Cheung, Siva Reddy*
 
+![An diagram of how FeedbackQA conceptually works](/docs/fbqa.png)
 
-## 1. Dataset
+This repository provides the code for experiments and the dataset we released. You can find below useful links:
 
-### Directory
-
-`feedbackqa_data/`
-
-### Dataset schema
-
-```
-|── Australia
-      |── train.json
-      |── valid.json
-      |── test.json
-      |── feedback_train.json
-      |── feedback_valid.json
-|── CDC ("US" in paper)
-|── Quebec ("Canada" in paper)
-      |── train.json
-      |── valid.json
-      |── test.json
-|── UK
-|── WHO
-
-```
-### Dataset statistics
+[📄 Paper](https://arxiv.org/abs/2204.03025)\
+[💻 Github Repository](https://github.com/McGill-NLP/feedbackqa)\
+[🌐 Webpage](https://mcgill-nlp.github.io/feedbackqa/)\
+[🤗 Huggingface Dataset](https://huggingface.co/datasets/McGill-NLP/feedbackQA)\
+[💿 Demo](http://206.12.100.48:8080/)
 
 
-<img width="353" alt="Screenshot 2022-04-04 at 11 30 47 AM" src="https://user-images.githubusercontent.com/54827718/161578845-5aed2727-e8a6-4247-890c-3094ef19b952.png">
-
-## 2. Install
-
-`git clone https://github.com/McGill-NLP/feedbackqa.git`
-``
-* `pip install -r requirement.txt`
-* `cd parlai && python setup.py install` 
-## 3. Train RQA models
-
-### BERT-based RQA model
-
-* `sh scripts_qa/run_train_bert.sh`
-
-### BART-based RQA model
-
-* `sh scripts_qa/run_train_bart.sh`
-
-## 4. Train Reranker models
-
-### `Reranker1`: Train FeedbackReranker with rating feedback
-
-* `sh scripts_rerank/run_train_rating.sh`
-
-### `Reranker2`: Train FeedbackReranker with both rating and explanation feedback (Used in human evaluation)
-
-* `sh scripts_rerank/run_train_feedback.sh`
-
-### `Reranker3`: Train VanillaReranker with QA data
-
-* `sh scripts_rerank/run_train_rating_pseudo.sh`
-
-### `Reranker4`: Train CombinedReranker with rating feedback and QA data
-
-* `sh scripts_rerank/run_train_rating_comb.sh`
-
-### `Reranker5`: Train CombinedReranker with rating & explanation feedback and QA data (*Not presented in the paper*)
-* Generating pseudo explanation feedback for QA data
-
-* `sh scripts_rerank/run_gen_explain_data.sh`
-* `sh scripts_rerank/run_train_feedback_comb.sh`
-
-## 5. Inference
-
-### QA model only
-* `sh scripts_qa/run_inference.sh`
-
-### QA model + `Reranker1` (rating feedback)
-* `sh scripts_rerank/run_rerank_rate.sh`
-
-### QA model + `Reranker2` (rating & explanation feedback)
-* `sh scripts_rerank/run_rerank_feedback.sh`
-
-### QA model + `Reranker3` (QA data)
-* `sh scripts_rerank/run_rerank_rate_pseudo.sh`
-
-### QA model + `Reranker4` (rating feedback and QA data)
-* `sh scripts_rerank/run_rerank_rate_comb.sh`
-
-### QA model + `Reranker5` (rating & explanation feedback and QA data, *Not presented in the paper*)
-* `sh scripts_rerank/run_rerank_feedback_comb.sh`
-
-## 6. Significant test for model comparisons
-* Following [this paper](https://aclanthology.org/D12-1091.pdf) to compare models head-to-head
-* `calc_boot_sigtest.ipynb`
-
-## 7. Acknowledgement
-
-The implementation of base QA models are borrowed from [ParlAI](https://github.com/facebookresearch/ParlAI). We use [Huggingface](https://github.com/huggingface) for implementing neural models.
-
-## 8. Citation
-
+You can cite us by using the following bibtex entry:
 ```
 @inproceedings{feedbackqa2022,
   title={Using Interactive Feedback to Improve the Accuracy and Explainability of Question Answering Systems Post-Deployment},
@@ -110,3 +24,66 @@ The implementation of base QA models are borrowed from [ParlAI](https://github.c
   year={2022}
 }
 ```
+
+## Experiments
+
+The full instructions for running the experiments described in the paper can be found in [`experiments/`](./experiments).
+
+## Dataset
+
+You can find link to Huggingface Dataset at the top of the readme. If you want to download them directly, you can find the data in [`data/`](./data). If you want to unprocessed, original version of the data, you can find them in [`experiments/feedbackQA_data/`](./experiments/feedbackQA_data/). Please refer to the instructions in [`experiments/`](./experiments) for more information on the structure of the original data.
+
+### Direct download
+
+To download directly from command line, run:
+
+```bash
+wget https://github.com/McGill-NLP/feedbackqa/raw/main/data/feedback_train.json
+wget https://github.com/McGill-NLP/feedbackqa/raw/main/data/feedback_valid.json
+wget https://github.com/McGill-NLP/feedbackqa/raw/main/data/feedback_test.json
+```
+
+### Cloned repository
+
+If you clone the repository, you will be able to directly access the dataset:
+
+```bash
+git clone https://github.com/McGill-NLP/feedbackqa
+cd feedbackqa/data
+```
+
+### Data usage
+
+The dataset is stored in the JSON format since it is structured in a particular way. We recommend loading it with Python:
+
+```python
+import json
+
+# Let's load the validation set and take a single sample as an example
+valid = json.load(open('feedback_valid.json'))
+sample = valid[0]
+
+print(sample.keys())
+# => dict_keys(['question', 'passage', 'feedback', 'rating', 'domain'])
+
+print(sample['question'])
+# => What are the new guidelines for DSS income reporting?
+
+print(sample['passage'].keys())
+# => dict_keys(['passage_id', 'source', 'uri', 'reference_type', 'reference'])
+print(sample['passage']['reference'].keys())
+# => dict_keys(['page_title', 'section_headers', 'section_content', 'selection_span', 'section_content_html'])
+print(sample['passage']['reference']['section_content'])
+# => If we approve your claim, you’ll need to report your\nincome for the past 2 weeks to\nget your first payment.\nTo do this, [...]
+
+print(sample['feedback'])
+# => ['Directs people to the tools where they can report their income.', 'Gives requirements and links in response.']
+
+print(sample['rating'])
+# => ['Excellent', 'Excellent']
+
+print(sample['domain'])
+# => Australia
+```
+
+

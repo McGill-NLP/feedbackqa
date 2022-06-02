@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style>
+  .reload {
+    font-family: Lucida Sans Unicode
+  }
+</style>
+<script>
+  // on ducment load call AJAX to get the data
+  function strToHTML(str) {
+    //string to JSON
+    var obj = JSON.parse(str);
+    var htmlString = "";
+    //loop through the JSON object
+    for (var i = 0; i < obj.length; i++) {
+      var isUnanswerbale = obj[i]["Answer"] == "UNANSWERABLE"
+      htmlString += "<b>Question " + (i+1).toString() + ":</b> " + obj[i]["Question"] + "<br>";
+      if (!isUnanswerbale){
+        htmlString += "<b>Rationale :</b> <i>" + obj[i]["Rationale"].substring(0, 100);
+          if (obj[i]["Rationale"].length > 100) {
+            htmlString += "... "
+            // htmlString += "<a href='#' class='show-more' data-toggle='modal' data-target='#rationaleModal" + (i+1).toString() + "'>Show More</a>"
+          }
+        htmlString += "</i><br>";
+        // htmlString += "<div id='rationaleModal" + (i+1).toString() + "' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='rationaleModal" + (i+1).toString() + "' aria-hidden='true'>"
+        // htmlString += "<p>testing</p>"
+        // htmlString += "</div>"
+      }
+      htmlString += "<b>Answer " + (i+1).toString() + ":</b> " + obj[i]["Answer"] + "<br>";
+      if (!isUnanswerbale){
+        var hrefLink = "https://en.wikipedia.org/wiki/" + obj[i]["Topic"].replaceAll(" ", "_");
+        if (obj[i]["Topic_section"] != "Introduction")
+          hrefLink += "#" + obj[i]["Topic_section"].replaceAll(" ", "_");
+        htmlString += "<b>Web Page :</b> <i>" + "<a href='" + hrefLink + "' target='_blank'>" + obj[i]["Topic"] + " (" + obj[i]["Topic_section"] + ")</a></i><br>";
+        }
+      htmlString += "<br>";
+    }
+
+    return htmlString;
+  }
+
+  function getExample(items) {
+    //string to JSON
+    //var obj = JSON.parse(json);
+    var example = items[Math.floor(Math.random() * items.length)];
+    //loop through the JSON object
+    return example;
+  }
+
+  function jsonToHTML(json) {
+    //string to JSON
+    //var obj = JSON.parse(json);
+    var htmlString = "";
+    htmlString += "<b>Question" + ":</b> " + (json['question']).toString() + "<br>";
+    htmlString += '<br>';
+    htmlString += "<b>Answer Candidate" + ":</b> " + "<br>" + 
+                   (json['passage']['reference']['page_title']).toString() +
+                   "<br>" +
+                   (json['passage']['reference']['section_content']).toString() + "<br>";
+    
+    htmlString += '<br>';
+    for (var i = 0; i < json['feedback'].length; i++) {
+      htmlString += "<b>Feedback " + (i+1).toString() + ":</b> " + "<br>";
+      var fb = json['feedback'][i];
+      var rate = json['rating'][i];
+      htmlString += "&emsp;<b> Rating" + ":</b> " + rate.toString() + "<br>";
+      htmlString += "&emsp;<b> Explanation" + ":</b> " + fb.toString() + "<br>";
+      htmlString += "<br>";
+    }
+    return htmlString;
+  }
+
+  function showExample() {
+    console.log("ready!");
+    $.ajax({
+      //headers: {
+      //  'Accept': 'application/json',
+      //  'Content-Type': 'application/json',
+      //  'Access-Control-Allow-Origin': '*'
+      //},
+      type: 'GET',
+      dataType: 'json',
+      url: 'https://raw.githubusercontent.com/McGill-NLP/feedbackqa/master/feedbackQA_data/UK/feedback_train.json',
+      success: function(data) {
+        console.log(data);
+        var example = getExample(data);
+        $("#datasetExplorer").html(jsonToHTML(example));
+      }, 
+      error: function(xhr, status, erro) {
+        //var err = eval("(" + xhr.responseText + ")");
+        //alert(err.Message);
+        $("#datasetExplorer").html('<p>Failed to load data, please try after some time.</p>');
+      },
+  })
+  }
+  $(document).ready(function() {
+    showExample();
+  });
+</script>
+<html lang="{{ site.lang | default: 'en-US' }}">
+  <head>
+    <meta charset="UTF-8">
+    <title>FeedbackQA</title>
+    <!--<link rel="icon" href="https://mcgill-nlp.github.io/topiocqa/topiocqa_no_background.png">-->
+
+{% seo %}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preload" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" as="style" type="text/css" crossorigin>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#157878">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    {% include head-custom.html %}
+  </head>
+  <body>
+    <a id="skip-to-content" href="#content">Skip to the content.</a>
+
+    <header class="page-header" role="banner" style="background-image: linear-gradient(120deg, #d7816a, #bd4f6c);">
+      <h3 class="project-name">Improving Question Answering Post-Deployment with Interactive Feedback</h3>
+        <h4> Created by <a href="https://github.com/McGill-NLP/" class="project-tagline">McGill-NLP</a></h4>
+        <a href="http://arxiv.org/abs/2204.03025" target='_blank' class="btn">Paper</a>
+        <a href="https://github.com/McGill-NLP/feedbackqa" target='_blank' class="btn">Code & Data</a>
+        <a href="https://huggingface.co/datasets/McGill-NLP/feedbackQA" class="btn">Load feedback data via HuggingFace</a>
+        <a href="http://206.12.100.48:8080" class="btn">Demo</a>
+    </header>
+
+    <main id="content" class="main-content" role="main">
+      <h1 class="into-1" style="color: #d7816a;">Overview</h1>
+        <p>Users interact with QA systems and leave feedback. In this project, we investigate methods of improving QA systems further post-deployment based on user interactions.</p> 
+      <h1 class="into-2" style="color: #d7816a;">Dataset</h1>
+        <p>We collect a retrieval-based QA dataset, FeedbackQA, which contains interactive feedback from users. We collect this dataset by deploying a base QA system to crowdworkers who then engage with the system and provide feedback on the quality of its answers. The feedback contains both structured ratings and unstructured natural language explanations. Check the dataset explorer at the bottom for some real examples.</p>
+        <img src="fbqa.png">
+      <h1 class="into-3" style="color: #d7816a;">Methods</h1>
+        <p>We propose a method to improve the RQA model with the feedback data, training a reranker to select an answer candidate as well as generate the explanation. We find that this approach not only increases the accuracy of the deployed model but also other stronger models for which feedback data is not collected. Moreover, our human evaluation results show that both human-written and model-generated explanations help users to make informed and accurate decisions about whether to accept an answer. Read our paper for more details, and play with our demo for an intuitive understanding of what we have done.</p>
+        <img src="method.png">
+
+      {{ content }}
+
+      <h1 class="dataset-explorer" style="color: #d7816a;">Dataset Explorer <button style="background-color: white; border: 0px;"><span onclick="showExample()" class=reload>&#x21bb;</span></button></h1>
+      <div class="dataset-explorer-container col-md-12" id="datasetExplorer" style="background-image: linear-gradient(120deg, #fbece8, #f8cad6); padding: 2em;">
+        <p>Loading...</p>
+      </div>
+
+      <footer class="site-footer">
+        {% if site.github.is_project_page %}
+          <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
+        {% endif %}
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+      </footer>
+    </main>
+  </body>
+</html>
