@@ -12,7 +12,8 @@ This repository provides the code for experiments and the dataset we released. Y
 [:octocat: Code](https://github.com/McGill-NLP/feedbackqa)\
 [🔗 Webpage](https://mcgill-nlp.github.io/feedbackqa/)\
 [💻 Demo](http://206.12.100.48:8080/)\
-[🤗 Huggingface Dataset](https://huggingface.co/datasets/McGill-NLP/feedbackQA)
+[🤗 Huggingface Dataset](https://huggingface.co/datasets/McGill-NLP/feedbackQA)\
+[💬 Discussions](https://github.com/McGill-NLP/feedbackqa/discussions)
 
 
 You can cite us by using the following bibtex entry:
