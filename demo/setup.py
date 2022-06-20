@@ -4,10 +4,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="fqa-web-app",
+    name="feedbackqa-app",
     version="0.1.0dev0",
-    author="Xing Han Lu",
-    author_email="github@xinghanlu.com",
+    author="Zichao Li, Prakhar Sharma, Xing Han Lu, Jackie C.K. Cheung, Siva Reddy",
+    author_email="",
     description="The web app and UI for FeedbackQA.",
     # TODO: Replace this with "long description"
     long_description="Please reach out to the author for more information.",
